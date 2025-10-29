@@ -153,56 +153,70 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
-    document.getElementById('registrationForm').addEventListener('submit', function(e) {
-      e.preventDefault();
+  document.getElementById('registrationForm').addEventListener('submit', function(e) {
+    e.preventDefault();
 
-      const loadingMessage = document.querySelector('.loading');
-      const responseAlert = document.getElementById('responseAlert');
-      loadingMessage.style.display = 'block'; // Show loading message
+    const loadingMessage = document.querySelector('.loading');
+    const responseAlert = document.getElementById('responseAlert');
+    loadingMessage.style.display = 'block'; // Show loading message
 
-      const formData = new FormData(this);
-      const data = new URLSearchParams(formData).toString();
+    const formData = new FormData(this);
+    const data = new URLSearchParams(formData).toString();
 
-      // Send data to the Google script and to Telegram
-      fetch(this.action, {
-        method: 'POST',
-        body: data
-      })
-      .then(response => response.json())
-      .then(result => {
-        if (result.success) {
-          responseAlert.className = 'alert alert-success';
-          responseAlert.innerText = 'Formulir berhasil dikirim!';
+    console.log("Form data:", data); // Log the form data being sent
 
-          // Send data to Telegram
-          const telegramMessage = `Formulir Pendaftaran Siswa Baru\n` +
-            `Program Pendidikan Pilihan : ${formData.get('program_pendidikan')}\n` +
-            `Nama Lengkap Siswa : ${formData.get('nama_lengkap')}\n` +
-            `Jenis Kelamin : ${formData.get('jenis_kelamin')}\n` +
-            `Tanggal Lahir : ${formData.get('tanggal_lahir')}\n` +
-            `Alamat : ${formData.get('alamat')}\n` +
-            `Nama Ayah : ${formData.get('nama_ayah')}\n` +
-            `Nama Ibu : ${formData.get('nama_ibu')}\n` +
-            `Kontak Orang Tua : ${formData.get('kontak_orangtua')}\n` +
-            `Sekolah Asal : ${formData.get('sekolah_asal')}`;
-          
-          fetch(`https://api.telegram.org/bot1256453702:AAH-xGFjPrSfLb9ohDyO9Yo6NvA00qE8uMk/sendMessage?chat_id=822381493&text=${encodeURIComponent(telegramMessage)}`);
-        } else {
-          responseAlert.className = 'alert alert-danger';
-          responseAlert.innerText = 'Gagal mengirim formulir. Silakan coba lagi.';
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
+    // Send data to the Google script and to Telegram
+    fetch(this.action, {
+      method: 'POST',
+      body: data
+    })
+    .then(response => response.json())
+    .then(result => {
+      console.log("Google Script Response:", result); // Log the response from Google Apps Script
+      if (result.success) {
+        responseAlert.className = 'alert alert-success';
+        responseAlert.innerText = 'Formulir berhasil dikirim!';
+
+        // Send data to Telegram
+        const telegramMessage = `Formulir Pendaftaran Siswa Baru\n` +
+          `Program Pendidikan Pilihan : ${formData.get('program_pendidikan')}\n` +
+          `Nama Lengkap Siswa : ${formData.get('nama_lengkap')}\n` +
+          `Jenis Kelamin : ${formData.get('jenis_kelamin')}\n` +
+          `Tanggal Lahir : ${formData.get('tanggal_lahir')}\n` +
+          `Alamat : ${formData.get('alamat')}\n` +
+          `Nama Ayah : ${formData.get('nama_ayah')}\n` +
+          `Nama Ibu : ${formData.get('nama_ibu')}\n` +
+          `Kontak Orang Tua : ${formData.get('kontak_orangtua')}\n` +
+          `Sekolah Asal : ${formData.get('sekolah_asal')}`;
+
+        console.log("Telegram message:", telegramMessage); // Log the message to be sent to Telegram
+        
+        fetch(`https://api.telegram.org/bot1256453702:AAH-xGFjPrSfLb9ohDyO9Yo6NvA00qE8uMk/sendMessage?chat_id=822381493&text=${encodeURIComponent(telegramMessage)}`)
+          .then(telegramResponse => telegramResponse.json())
+          .then(telegramResult => {
+            console.log("Telegram Response:", telegramResult); // Log Telegram API response
+          })
+          .catch(telegramError => {
+            console.error("Telegram error:", telegramError); // Log any errors with Telegram API
+          });
+      } else {
         responseAlert.className = 'alert alert-danger';
-        responseAlert.innerText = 'Terjadi kesalahan. Silakan coba lagi.';
-      })
-      .finally(() => {
-        loadingMessage.style.display = 'none'; // Hide loading message
-        responseAlert.style.display = 'block'; // Show response message
-      });
+        responseAlert.innerText = 'Gagal mengirim formulir. Silakan coba lagi.';
+      }
+    })
+    .catch(error => {
+      console.error('Error during form submission:', error); // Log the error in case of a failure
+      responseAlert.className = 'alert alert-danger';
+      responseAlert.innerText = 'Terjadi kesalahan. Silakan coba lagi.';
+    })
+    .finally(() => {
+      loadingMessage.style.display = 'none'; // Hide loading message
+      responseAlert.style.display = 'block'; // Show response message
     });
-  </script>
+  });
+</script>
+
 
 </body>
 </html>
+
