@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8">
+    <title>Formulir Pendaftaran Siswa Baru</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body class="bg-light py-4">
+    <div class="container">
+      <h2 class="text-center mb-4">Formulir Pendaftaran</h2>
+
+      <form id="formDaftar" class="card p-4 shadow-sm">
+        <div class="mb-3">
+          <label class="form-label">Program</label>
+          <select name="program" class="form-select" id="program" required>
+            <option value="">-- Pilih Program --</option>
+            <option value="TK A">TK A</option>
+            <option value="TK B">TK B</option>
+            <option value="SD">SD</option>
+            <option value="SMP Fullday">SMP Fullday</option>
+            <option value="SMP Boarding">SMP Boarding</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Nama Lengkap</label>
+          <input type="text" name="nama" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Jenis Kelamin</label>
+          <select name="jk" class="form-select" required>
+            <option value="">-- Pilih --</option>
+            <option value="Laki-laki">Laki-laki</option>
+            <option value="Perempuan">Perempuan</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Tanggal Lahir</label>
+          <input type="date" name="tgl_lahir" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Alamat</label>
+          <textarea name="alamat" class="form-control" rows="2" required></textarea>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Nama Ayah</label>
+          <input type="text" name="nama_ayah" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Nama Ibu</label>
+          <input type="text" name="nama_ibu" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Kontak Ortu/Wali</label>
+          <input type="text" name="kontak" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Asal Sekolah (jika ada)</label>
+          <input type="text" name="asal_sekolah" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-success w-100">Kirim Pendaftaran</button>
+        <a href="?" class="btn btn-secondary w-100 mt-2">Kembali ke Beranda</a>
+      </form>
+
+      <div id="alert" class="alert alert-success mt-3 d-none">Pendaftaran berhasil dikirim!</div>
+    </div>
+
+    <script>
+      document.getElementById("formDaftar").addEventListener("submit", async function(e) {
+  e.preventDefault();
+  
+  // Ambil data dari form
+  const formData = Object.fromEntries(new FormData(this).entries());
+  
+  // Ganti dengan URL Web App yang kamu dapatkan dari Google Apps Script
+  const webAppUrl = "https://script.google.com/macros/s/AKfycbw30kGBGGaEI_8-nZbh17-badMbsNhUpMv54KgRhCkc87ul1M-EnTekAs9zoj2zg0FOzw/exec"; // Ganti dengan URL Web App kamu
+  
+  // Mengirimkan data ke Google Apps Script Web App menggunakan fetch
+  const res = await fetch(webAppUrl, {
+    method: "POST",
+    body: JSON.stringify(formData),
+    headers: { "Content-Type": "application/json" }
+  });
+  
+  // Cek apakah data berhasil dikirim
+  if ((await res.text()) === "success") {
+    this.reset(); // Reset form setelah sukses
+    document.getElementById("alert").classList.remove("d-none"); // Tampilkan pesan sukses
+    window.scrollTo(0, 0); // Scroll ke atas agar pesan tampil di atas
+  }
+     
+      
+      });
+    </script>
+  </body>
+</html>
