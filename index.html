@@ -230,9 +230,9 @@
         <!--
         <a href="?page=pilihsekolah" class="btn btn-cta btn-lg">Form Pendaftaran</a>
         -->
-        <a href="?page=dataunittk" class="btn btn-ctatk btn-dutk">Form Pendaftaran TK</a>
-        <a href="?page=dataunitsd" class="btn btn-ctasd btn-dusd">Form Pendaftaran SD</a>
-        <a href="?page=dataunitsmp" class="btn btn-ctasmp btn-dusmp">Form Pendaftaran SMP</a>
+        <a href="tk.html" class="btn btn-ctatk btn-dutk">Form Pendaftaran TK</a>
+        <a href="sd.html" class="btn btn-ctasd btn-dusd">Form Pendaftaran SD</a>
+        <a href="smp.html" class="btn btn-ctasmp btn-dusmp">Form Pendaftaran SMP</a>
 
       
 
@@ -258,20 +258,7 @@
       </div>
     </footer>
 
-<script>
-google.script.run.withSuccessHandler(url => {
-  document.querySelectorAll('a[href^="?page="], a[href$="index.html"]').forEach(a => {
-    const href = a.getAttribute('href');
-    // Pastikan parameter ?page= benar-benar ada
-    if (href.startsWith("?page=")) {
-      const cleanHref = href.replace("?page=", "?page="); // jaga format
-      a.href = url + cleanHref;
-    } else if (href.endsWith("index.html")) {
-      a.href = url;
-    }
-  });
-}).getBaseUrl();
-</script>
+
 
 
 
