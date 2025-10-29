@@ -3,138 +3,143 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Formulir Pendaftaran Siswa Baru</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <title>Formulir Pendaftaran Siswa Baru - SMPIT Dar An-Najah</title>
+  
+  <!-- Link ke Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  
   <style>
-    @media (max-width: 576px) {
-      .container {
-        padding: 15px;
-      }
-      .form-control {
-        font-size: 14px;
-      }
-      .btn {
-        font-size: 14px;
-      }
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Poppins', sans-serif;
+      padding-top: 60px;
     }
-    
-    /* Spinner responsif */
-    #spinner {
-      display: none;
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 30px;
+      background-color: white;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+
+    .main-title {
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+      width: 100%;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+      border-color: #004085;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      padding: 10px;
+      font-size: 0.9rem;
+      color: #777;
     }
   </style>
 </head>
-<body class="bg-light py-4">
-  <div class="container">
-    <h2 class="text-center mb-4">Formulir Pendaftaran</h2>
+<body>
 
-    <form id="formDaftar" class="card p-4 shadow-sm">
-      <div class="mb-3">
-        <label class="form-label">Program</label>
-        <select name="program" class="form-select" required>
-          <option value="">-- Pilih Program --</option>
-          <option value="TK A">TK A</option>
-          <option value="TK B">TK B</option>
+  <div class="container">
+    <h1 class="main-title">Formulir Pendaftaran Siswa Baru</h1>
+
+    <!-- Formulir Pendaftaran -->
+    <form action="https://script.google.com/macros/s/AKfycbxlxdikgVrKsSdcATJfIo1F6WUt7u87uqLjZzjRv2WEpil4-iOluACWXvItNjX6qhhJgA/exec" method="POST">
+      <!-- Program Pendidikan Pilihan -->
+      <div class="form-group">
+        <label for="program_pendidikan" class="form-title">Program Pendidikan Pilihan</label>
+        <select id="program_pendidikan" class="form-control" name="program_pendidikan" required>
+          <option value="">Pilih Program Pendidikan</option>
+          <option value="TK_A">TK A</option>
+          <option value="TK_B">TK B</option>
+         
           <option value="SD">SD</option>
-          <option value="SMP Fullday">SMP Fullday</option>
-          <option value="SMP Boarding">SMP Boarding</option>
+          <option value="SMP_Fullday">SMP Fullday</option>
+          <option value="SMP_Boarding">SMP Boarding</option>
         </select>
       </div>
-      <div class="mb-3">
-        <label class="form-label">Nama Lengkap</label>
-        <input type="text" name="nama" class="form-control" required>
+
+      <!-- Data Pribadi -->
+      <div class="form-group">
+        <label for="nama_lengkap" class="form-title">Nama Lengkap Siswa</label>
+        <input type="text" id="nama_lengkap" class="form-control" name="nama_lengkap" required>
       </div>
-      <div class="mb-3">
-        <label class="form-label">Jenis Kelamin</label>
-        <select name="jk" class="form-select" required>
-          <option value="">-- Pilih --</option>
-          <option value="Laki-laki">Laki-laki</option>
+
+      <div class="form-group">
+        <label for="jenis_kelamin" class="form-title">Jenis Kelamin</label>
+        <select id="jenis_kelamin" class="form-control" name="jenis_kelamin" required>
+          <option value="Laki-Laki">Laki-Laki</option>
           <option value="Perempuan">Perempuan</option>
         </select>
       </div>
-      <div class="mb-3">
-        <label class="form-label">Tanggal Lahir</label>
-        <input type="date" name="tgl_lahir" class="form-control" required>
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Alamat</label>
-        <textarea name="alamat" class="form-control" rows="2" required></textarea>
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Nama Ayah</label>
-        <input type="text" name="nama_ayah" class="form-control" required>
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Nama Ibu</label>
-        <input type="text" name="nama_ibu" class="form-control" required>
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Kontak Ortu/Wali</label>
-        <input type="text" name="kontak" class="form-control" required>
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Asal Sekolah (jika ada)</label>
-        <input type="text" name="asal_sekolah" class="form-control">
+
+      <div class="form-group">
+        <label for="tanggal_lahir" class="form-title">Tanggal Lahir</label>
+        <input type="date" id="tanggal_lahir" class="form-control" name="tanggal_lahir" required>
       </div>
 
-      <button type="submit" class="btn btn-success w-100">Kirim Pendaftaran</button>
-      <a href="index.html" class="btn btn-secondary w-100 mt-2">Kembali ke Beranda</a>
+      <div class="form-group">
+        <label for="alamat" class="form-title">Alamat</label>
+        <textarea id="alamat" class="form-control" name="alamat" rows="3" required></textarea>
+      </div>
+
+      <!-- Data Orang Tua -->
+      <div class="form-group">
+        <label for="nama_ayah" class="form-title">Nama Ayah</label>
+        <input type="text" id="nama_ayah" class="form-control" name="nama_ayah" required>
+      </div>
+
+      <div class="form-group">
+        <label for="nama_ibu" class="form-title">Nama Ibu</label>
+        <input type="text" id="nama_ibu" class="form-control" name="nama_ibu" required>
+      </div>
+
+      <div class="form-group">
+        <label for="kontak_orangtua" class="form-title">Kontak Orang Tua</label>
+        <input type="tel" id="kontak_orangtua" class="form-control" name="kontak_orangtua" required>
+      </div>
+
+      <!-- Data Pendidikan -->
+      <div class="form-group">
+        <label for="sekolah_asal" class="form-title">Sekolah Asal</label>
+        <input type="text" id="sekolah_asal" class="form-control" name="sekolah_asal" required>
+      </div>
+
+
+      <button type="submit" class="btn btn-primary">Daftar Sekarang</button>
     </form>
-
-    <!-- Spinner untuk menunjukkan proses submit -->
-    <div id="spinner" class="text-center mt-3">
-      <div class="spinner-border text-primary" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
-    </div>
-
-    <!-- Pesan sukses atau gagal -->
-    <div id="alert" class="alert alert-success mt-3 d-none">Pendaftaran berhasil dikirim!</div>
-    <div id="alertError" class="alert alert-danger mt-3 d-none">Terjadi kesalahan, coba lagi.</div>
   </div>
+  
 
-  <script>
-    document.getElementById("formDaftar").addEventListener("submit", async function(e) {
-      e.preventDefault();
-      
-      // Tampilkan spinner
-      document.getElementById("spinner").style.display = "block";
-      
-      // Ambil data dari form
-      const formData = Object.fromEntries(new FormData(this).entries());
 
-      // Ganti dengan URL Web App yang kamu dapatkan dari Google Apps Script
-      const webAppUrl = "https://script.google.com/macros/s/AKfycbwXS7LnLi-Daksa-a1lzO_7TBTxh76VI9xBHW-udniHNX0IEFe4Rg2d5OGJQmTu_6UaCw/exec"; // Ganti dengan URL Web App kamu
-      
-      try {
-        // Mengirimkan data ke Google Apps Script Web App menggunakan fetch
-        const res = await fetch(webAppUrl, {
-          method: "POST",
-          body: JSON.stringify(formData),
-          headers: { "Content-Type": "application/json" }
-        });
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Sekolah Sunnah An-Najah | Semua Hak Dilindungi</p>
+  </footer>
 
-        const responseText = await res.text();
-        console.log(responseText);  // Menampilkan respons dari server
-
-        if (responseText === "success") {
-          this.reset(); // Reset form setelah sukses
-          document.getElementById("alert").classList.remove("d-none"); // Tampilkan pesan sukses
-          document.getElementById("alertError").classList.add("d-none"); // Pastikan pesan error tidak tampil
-        } else {
-          document.getElementById("alertError").classList.remove("d-none"); // Tampilkan pesan error
-          document.getElementById("alert").classList.add("d-none"); // Pastikan pesan sukses tidak tampil
-        }
-      } catch (error) {
-        console.error("Error:", error);
-        document.getElementById("alertError").classList.remove("d-none"); // Tampilkan pesan error
-        document.getElementById("alert").classList.add("d-none"); // Pastikan pesan sukses tidak tampil
-      } finally {
-        // Sembunyikan spinner
-        document.getElementById("spinner").style.display = "none";
-      }
-    });
-  </script>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
