@@ -59,7 +59,7 @@
         </div>
 
         <button type="submit" class="btn btn-success w-100">Kirim Pendaftaran</button>
-        <a href="?" class="btn btn-secondary w-100 mt-2">Kembali ke Beranda</a>
+        <a href="index.html" class="btn btn-secondary w-100 mt-2">Kembali ke Beranda</a>
       </form>
 
       <div id="alert" class="alert alert-success mt-3 d-none">Pendaftaran berhasil dikirim!</div>
@@ -73,7 +73,7 @@
   const formData = Object.fromEntries(new FormData(this).entries());
   
   // Ganti dengan URL Web App yang kamu dapatkan dari Google Apps Script
-  const webAppUrl = "https://script.google.com/macros/s/AKfycbw30kGBGGaEI_8-nZbh17-badMbsNhUpMv54KgRhCkc87ul1M-EnTekAs9zoj2zg0FOzw/exec"; // Ganti dengan URL Web App kamu
+  const webAppUrl = "https://script.google.com/macros/s/AKfycbyLLtZZ6Hvxe0K89J_s8O8eA0ZLLXGnHwv2yR-c0xkrXvd6xo5v2jW8AdUqq0A47NFxWQ/exec"; // Ganti dengan URL Web App kamu
   
   // Mengirimkan data ke Google Apps Script Web App menggunakan fetch
   const res = await fetch(webAppUrl, {
