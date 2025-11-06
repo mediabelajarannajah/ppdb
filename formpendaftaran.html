@@ -58,6 +58,39 @@
       font-size: 0.9rem;
       color: #777;
     }
+
+    /* Floating box styles */
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      background-color: #28a745;
+      color: white;
+      font-weight: bold;
+      display: none;
+      z-index: 1050;
+    }
+
+    .notification.fail {
+      background-color: #dc3545;
+    }
+
+    .btn-back {
+      display: inline-block;
+      margin-top: 20px;
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+
+    .btn-back:hover {
+      background-color: #0056b3;
+    }
   </style>
 </head>
 <body>
@@ -66,7 +99,7 @@
     <h1 class="main-title">Formulir Pendaftaran Siswa Baru</h1>
 
     <!-- Formulir Pendaftaran -->
-    <form action="https://script.google.com/macros/s/AKfycbxlxdikgVrKsSdcATJfIo1F6WUt7u87uqLjZzjRv2WEpil4-iOluACWXvItNjX6qhhJgA/exec" method="POST">
+    <form id="registrationForm">
       <!-- Program Pendidikan Pilihan -->
       <div class="form-group">
         <label for="program_pendidikan" class="form-title">Program Pendidikan Pilihan</label>
@@ -74,7 +107,6 @@
           <option value="">Pilih Program Pendidikan</option>
           <option value="TK_A">TK A</option>
           <option value="TK_B">TK B</option>
-         
           <option value="SD">SD</option>
           <option value="SMP_Fullday">SMP Fullday</option>
           <option value="SMP_Boarding">SMP Boarding</option>
@@ -127,12 +159,15 @@
         <input type="text" id="sekolah_asal" class="form-control" name="sekolah_asal" required>
       </div>
 
-
       <button type="submit" class="btn btn-primary">Daftar Sekarang</button>
     </form>
   </div>
-  
 
+  <!-- Notifikasi -->
+  <div id="notification" class="notification">
+    <span id="notificationMessage"></span>
+    <a href="index.html" class="btn-back">Close</a>
+  </div>
 
   <!-- Footer -->
   <footer>
@@ -141,6 +176,49 @@
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Fungsi untuk menangani pengiriman formulir
+    document.getElementById('registrationForm').addEventListener('submit', function(event) {
+  event.preventDefault(); // Mencegah pengiriman formulir default
+
+  let formData = new FormData(this);
+  let notification = document.getElementById('notification');
+  let notificationMessage = document.getElementById('notificationMessage');
+
+  // Mengirim data formulir dengan Fetch API
+  fetch('https://script.google.com/macros/s/AKfycbxlxdikgVrKsSdcATJfIo1F6WUt7u87uqLjZzjRv2WEpil4-iOluACWXvItNjX6qhhJgA/exec', {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => response.text())  // Parsing respons sebagai teks biasa
+  .then(data => {
+    // Log respons untuk debugging
+    console.log("Server response:", data);
+
+    // Jika respons mengandung teks 'Data telah diterima', berarti berhasil
+    if (data === 'Data telah diterima') {
+      notification.classList.remove('fail');
+      notification.classList.add('success');
+      notificationMessage.textContent = 'Pendaftaran berhasil! Terima kasih telah mendaftar.';
+    } else {
+      notification.classList.remove('success');
+      notification.classList.add('fail');
+      notificationMessage.textContent = 'Pendaftaran gagal. Silakan coba lagi.';
+    }
+    notification.style.display = 'block';
+  })
+  .catch(error => {
+    // Log error untuk debugging
+    console.error("Error:", error);
+
+    notification.classList.remove('success');
+    notification.classList.add('fail');
+    notificationMessage.textContent = 'Terjadi kesalahan. Silakan coba lagi.';
+    notification.style.display = 'block';
+  });
+});
+
+  </script>
 </body>
 </html>
-
